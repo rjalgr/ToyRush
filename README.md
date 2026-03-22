@@ -1,59 +1,180 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# ToyRush PH — Laravel E-Commerce
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+A full-featured toy e-commerce web application built with **Laravel 11**, featuring separate **Admin** and **User** panels with complete **CRUD** operations backed by **MySQL**.
 
-## About Laravel
+---
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+## Preview
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+> A modern toy store with product listings, cart, checkout, and admin management.
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+---
 
-## Learning Laravel
+## Features
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework. You can also check out [Laravel Learn](https://laravel.com/learn), where you will be guided through building a modern Laravel application.
+### User Side
+- Browse products by category
+- Search and filter products (price, category, sort)
+- Product detail page with related products
+- Shopping cart (add, update quantity, remove, clear)
+- Checkout with shipping info and payment method selection
+- Order history and order detail view with status timeline
+- User profile page with stats and recent orders
+- Register and login with eye toggle password visibility
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+### 🔧 Admin Panel
+- Dashboard with stats (users, products, orders, revenue)
+- **Products** — Create, Read, Update, Delete + image upload
+- **Categories** — Create, Read, Update, Delete
+- **Orders** — View, update order & payment status, delete
+- **Users** — Create, Read, Update, Delete + role management
 
-## Laravel Sponsors
+---
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+## Database Schema
 
-### Premium Partners
+| Table | Description |
+|---|---|
+| `users` | Customers and admins with role-based access |
+| `categories` | Product categories |
+| `products` | Toys with price, stock, age range, images |
+| `orders` | Customer orders with shipping info |
+| `order_items` | Individual items per order |
+| `cart_items` | Active cart items per user |
 
-- **[Vehikl](https://vehikl.com)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Redberry](https://redberry.international/laravel-development)**
-- **[Active Logic](https://activelogic.com)**
+---
 
-## Contributing
+##  Roles & Access
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+| Role | Access |
+|---|---|
+| **Guest** | Browse shop, view products |
+| **User** | Cart, checkout, orders, profile |
+| **Admin** | Full admin panel + all user features |
 
-## Code of Conduct
+---
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+## ⚙️ Tech Stack
 
-## Security Vulnerabilities
+| Layer | Technology |
+|---|---|
+| Framework | Laravel 11 |
+| Database | MySQL |
+| Frontend | Bootstrap 5.3 + Bootstrap Icons |
+| Auth | Laravel built-in session auth |
+| Storage | Laravel Storage (local disk) |
+| PHP | 8.2+ |
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+---
+
+## Installation
+
+### 1. Clone the repository
+```bash
+git clone https://github.com/your-username/toyrush-ph.git
+cd toyrush-ph
+```
+
+### 2. Install dependencies
+```bash
+composer install
+```
+
+### 3. Environment setup
+```bash
+cp .env.example .env
+php artisan key:generate
+```
+
+### 4. Configure `.env`
+```env
+DB_CONNECTION=mysql
+DB_HOST=127.0.0.1
+DB_PORT=3306
+DB_DATABASE=toy_ecommerce
+DB_USERNAME=root
+DB_PASSWORD=
+```
+
+### 5. Create the database
+```sql
+CREATE DATABASE toy_ecommerce CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+```
+
+### 6. Run migrations and seed
+```bash
+php artisan migrate --seed
+```
+
+### 7. Storage link
+```bash
+php artisan storage:link
+```
+
+### 8. Start the server
+```bash
+php artisan serve
+```
+
+Visit **http://127.0.0.1:8000**
+
+---
+
+## Demo Accounts
+
+| Role | Email | Password |
+|---|---|---|
+| Admin | admin@toyshop.com | password |
+| User | user@toyshop.com | password |
+
+---
+
+## 📁 Project Structure
+
+```
+app/
+├── Http/
+│   ├── Controllers/
+│   │   ├── Admin/         # Dashboard, Products, Categories, Orders, Users
+│   │   ├── Auth/          # Login, Register, Logout
+│   │   └── User/          # Shop, Cart, Orders, Profile
+│   └── Middleware/
+│       └── AdminMiddleware.php
+└── Models/
+    ├── User.php
+    ├── Category.php
+    ├── Product.php
+    ├── Order.php
+    ├── OrderItem.php
+    └── CartItem.php
+
+database/
+├── migrations/            # 5 migration files
+└── seeders/
+    └── DatabaseSeeder.php # Demo data
+
+resources/views/
+├── layouts/               # app.blade.php, admin.blade.php
+├── auth/                  # login, register
+├── admin/                 # dashboard, products, categories, orders, users
+└── user/                  # home, shop, cart, orders, profile
+
+routes/
+└── web.php
+```
+
+---
+
+## Sample Seed Data
+
+- **6 Categories** — Action Figures, Board Games, Educational Toys, Stuffed Animals, Building Blocks, Remote Control
+- **12 Products** — with prices, stock levels, age ranges, and sale prices
+- **2 Users** — 1 Admin + 1 Customer
+
+---
 
 ## License
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+This project is open-source and available under the [MIT License](LICENSE).
+
+---
