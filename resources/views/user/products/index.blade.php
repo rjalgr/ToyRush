@@ -6,7 +6,7 @@
         <div class="col-lg-3">
             <div class="card border-0 shadow-sm sticky-top" style="top:80px">
                 <div class="card-body">
-                    <h6 class="fw-bold mb-3">🔍 Filter Products</h6>
+                    <h6 class="fw-bold mb-3">Filter Products</h6>
                     <form method="GET" action="{{ route('user.shop') }}">
                         <div class="mb-3">
                             <label class="form-label small fw-semibold">Search</label>
