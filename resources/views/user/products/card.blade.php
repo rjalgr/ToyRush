@@ -1,3 +1,6 @@
+@extends('layouts.app')
+@section('title', 'Shop')
+@section('content')
 <div class="card product-card h-100">
     <a href="{{ route('user.products.show', $product) }}" class="position-relative d-block">
         @if($product->image)
