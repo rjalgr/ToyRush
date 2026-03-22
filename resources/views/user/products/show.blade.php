@@ -15,13 +15,13 @@
                 @if($product->image)
                     <img src="{{ asset('storage/'.$product->image) }}" class="card-img-top rounded" style="max-height:400px;object-fit:cover">
                 @else
-                    <div class="d-flex align-items-center justify-content-center rounded" style="height:350px;background:#f8f8f8;font-size:6rem">🧸</div>
+                    <div class="d-flex align-items-center justify-content-center rounded" style="height:350px;background:#f8f8f8;font-size:6rem"></div>
                 @endif
             </div>
         </div>
         <div class="col-md-7">
             <span class="badge bg-light text-dark mb-2">{{ $product->category->name }}</span>
-            @if($product->is_featured)<span class="badge ms-1" style="background:#FFD700;color:#333">⭐ Featured</span>@endif
+            @if($product->is_featured)<span class="badge ms-1" style="background:#FFD700;color:#333">Featured</span>@endif
             <h1 class="h2 fw-bold mt-2">{{ $product->name }}</h1>
             <div class="d-flex align-items-center gap-3 my-3">
                 @if($product->sale_price)
