@@ -9,74 +9,83 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
     <style>
         :root {
-            --toy-primary:   #FF6B35;
-            --toy-secondary: #FFD700;
-            --toy-dark:      #2D2D2D;
-            --toy-light:     #FFF8F0;
+            --primary:   #FF6B35;
+            --secondary: #FFD700;
+            --dark:      #2D2D2D;
+            --light:     #FFF8F0;
         }
-        * { box-sizing: border-box; margin: 0; padding: 0; }
-        html, body { width: 100%; overflow-x: hidden; }
+
+        /* ── Reset & Base ── */
+        *, *::before, *::after { box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
         body {
-            background: var(--toy-light);
+            margin: 0;
+            background: var(--light);
             font-family: 'Segoe UI', sans-serif;
             min-height: 100vh;
             display: flex;
             flex-direction: column;
+            overflow-x: hidden;
         }
         main { flex: 1 0 auto; }
 
         /* ── Navbar ── */
         .navbar {
-            background: transparent;
+            background: #fff;
+            box-shadow: 0 1px 12px rgba(0,0,0,.07);
             padding: 0 !important;
-            height: 58px;
-            width: 100%;
+            min-height: 60px;
         }
-        .navbar .container { height: 58px; }
+        .navbar .container {
+            min-height: 60px;
+            display: flex;
+            align-items: center;
+        }
         .navbar-brand {
             font-size: 1.4rem;
             font-weight: 800;
-            color: var(--toy-primary) !important;
-            padding: 0;
+            color: var(--primary) !important;
             line-height: 1;
+            padding: 0;
+            margin-right: 28px;
         }
-        .navbar-brand span { color: var(--toy-secondary); }
-        ..navbar .nav-link {
-        font-size: .9rem;
-        font-weight: 500;
-        color: #333 !important;
-        padding: 0 12px !important;
-        line-height: 58px;
-        white-space: nowrap;
-}
-        .navbar .nav-link:hover { color: var(--toy-primary) !important; }
+        .navbar-brand span { color: var(--secondary); }
+        .navbar .nav-link {
+            font-size: .9rem;
+            font-weight: 500;
+            color: #444 !important;
+            padding: 0 14px !important;
+            line-height: 60px;
+            white-space: nowrap;
+            transition: color .15s;
+        }
+        .navbar .nav-link:hover,
+        .navbar .nav-link.active { color: var(--primary) !important; }
         .navbar .btn { font-size: .85rem; }
-        .cart-count {
-            background: var(--toy-primary);
-            color: #fff;
-            border-radius: 50%;
-            font-size: .65rem;
-            padding: 1px 5px;
-            position: relative;
-            top: -8px;
-            left: -4px;
+        .navbar-toggler:focus { box-shadow: none; }
+
+        /* mobile nav */
+        @media (max-width: 767.98px) {
+            .navbar .nav-link { line-height: 2.4; padding: 0 8px !important; }
+            .navbar-collapse   { padding: 8px 0 12px; border-top: 1px solid #eee; }
+            .navbar-collapse .d-flex { flex-wrap: wrap; gap: 8px !important; padding-top: 8px; }
         }
 
         /* ── Buttons ── */
-        .btn-primary               { background: var(--toy-primary); border-color: var(--toy-primary); }
-        .btn-primary:hover         { background: #e55a27;            border-color: #e55a27; }
-        .btn-outline-primary       { color: var(--toy-primary);      border-color: var(--toy-primary); }
-        .btn-outline-primary:hover { background: var(--toy-primary); border-color: var(--toy-primary); color: #fff; }
-        .text-primary              { color: var(--toy-primary) !important; }
-        .bg-primary                { background: var(--toy-primary) !important; }
+        .btn-primary               { background: var(--primary); border-color: var(--primary); }
+        .btn-primary:hover         { background: #e55a27;        border-color: #e55a27; }
+        .btn-outline-primary       { color: var(--primary);      border-color: var(--primary); }
+        .btn-outline-primary:hover { background: var(--primary); border-color: var(--primary); color: #fff; }
+        .text-primary  { color: var(--primary) !important; }
+        .bg-primary    { background: var(--primary) !important; }
 
-        /* ── Products ── */
-        .product-card       { transition: transform .2s, box-shadow .2s; border: none; }
+        /* ── Product cards ── */
+        .product-card       { border: none; transition: transform .2s, box-shadow .2s; }
         .product-card:hover { transform: translateY(-4px); box-shadow: 0 8px 24px rgba(0,0,0,.12); }
         .product-img        { height: 200px; object-fit: cover; background: #f0f0f0; }
-        .badge-sale         { background: var(--toy-primary); color: #fff; font-size: .7rem; }
+        .badge-sale         { background: var(--primary); color: #fff; font-size: .7rem; }
         .price-old          { text-decoration: line-through; color: #999; font-size: .85rem; }
-        .price-new          { color: var(--toy-primary); font-weight: 700; font-size: 1.1rem; }
+        .price-new          { color: var(--primary); font-weight: 700; font-size: 1.1rem; }
 
         /* ── Hero ── */
         .hero-section {
@@ -90,59 +99,70 @@
             border: none;
             background: #fff;
             border-radius: 12px;
-            transition: transform .10s;
             text-align: center;
             padding: 20px;
+            transition: transform .2s;
         }
         .category-card:hover { transform: translateY(-3px); }
 
         /* ── Footer ── */
         .footer {
             flex-shrink: 0;
-            background: transparent;
-            border-top: 1px solid rgba(0,0,0,.08);
-            color: #555;
-            padding: 3rem 0 2rem;
+            background: var(--dark);
+            color: #aaa;
+            padding: 48px 0 24px;
+            width: 100%;
         }
-        .footer h5,
-        .footer h6     { font-weight: 600; color: #333; }
-        .footer-link   { transition: all .2s ease; display: block; padding: .25rem 0; }
-        .footer-link:hover { color: var(--toy-primary) !important; transform: translateX(4px); }
+        .footer h5, .footer h6 { color: #fff; font-weight: 600; }
+        .footer-link {
+            display: block;
+            padding: .25rem 0;
+            color: #aaa;
+            text-decoration: none;
+            transition: color .2s, transform .2s;
+        }
+        .footer-link:hover { color: var(--primary); transform: translateX(4px); }
+        .footer hr { border-color: rgba(255,255,255,.1); }
+        .footer .text-muted { color: #777 !important; }
     </style>
     @stack('styles')
 </head>
 <body>
 
-{{-- ── Navbar ── --}}
-<nav class="navbar navbar-expand-md">
+{{-- ════ NAVBAR ════ --}}
+<nav class="navbar navbar-expand-md sticky-top">
     <div class="container">
         <a class="navbar-brand" href="{{ route('user.home') }}">Toy<span>Rush</span></a>
+
         <button class="navbar-toggler border-0" type="button"
-                data-bs-toggle="collapse" data-bs-target="#mainNav">
+                data-bs-toggle="collapse" data-bs-target="#mainNav"
+                aria-controls="mainNav" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
+
         <div class="collapse navbar-collapse" id="mainNav">
             <ul class="navbar-nav me-auto mb-0">
                 <li class="nav-item">
-                    <a class="nav-link {{ request()->routeIs('user.home') ? 'active fw-semibold' : '' }}"
+                    <a class="nav-link {{ request()->routeIs('user.home') ? 'active' : '' }}"
                        href="{{ route('user.home') }}">Home</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link {{ request()->routeIs('user.shop') ? 'active fw-semibold' : '' }}"
+                    <a class="nav-link {{ request()->routeIs('user.shop*','user.products*') ? 'active' : '' }}"
                        href="{{ route('user.shop') }}">Shop</a>
                 </li>
             </ul>
+
             <div class="d-flex align-items-center gap-2">
                 @auth
-                    {{-- Cart --}}
+                    {{-- Cart button --}}
                     <a href="{{ route('user.cart') }}"
-                       class="btn btn-sm position-relative me-1"
-                       style="background:var(--toy-primary);border-color:var(--toy-primary);color:#fff;border-radius:8px;padding:6px 14px;">
+                       class="btn btn-sm position-relative"
+                       style="background:var(--primary);color:#fff;border:none;border-radius:8px;padding:6px 14px;">
                         <i class="bi bi-cart3 me-1"></i>Cart
                         @php $cartCount = auth()->user()->cartItems()->count(); @endphp
                         @if($cartCount > 0)
                             <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill"
-                                  style="background:#2D2D2D;font-size:.6rem">
+                                  style="background:#222;font-size:.6rem;min-width:18px">
                                 {{ $cartCount }}
                             </span>
                         @endif
@@ -150,44 +170,45 @@
 
                     {{-- User dropdown --}}
                     <div class="dropdown">
-                        <button class="btn btn-outline-primary btn-sm dropdown-toggle d-flex align-items-center gap-1"
+                        <button class="btn btn-outline-primary btn-sm dropdown-toggle d-flex align-items-center gap-2"
                                 data-bs-toggle="dropdown" aria-expanded="false">
-                            <span class="rounded-circle d-inline-flex align-items-center justify-content-center text-white fw-bold"
-                                  style="width:22px;height:22px;font-size:.7rem;background:var(--toy-primary)">
+                            <span class="rounded-circle d-inline-flex align-items-center justify-content-center fw-bold text-white"
+                                  style="width:22px;height:22px;font-size:.7rem;background:var(--primary);flex-shrink:0">
                                 {{ strtoupper(substr(auth()->user()->name, 0, 1)) }}
                             </span>
-                            {{ auth()->user()->name }}
+                            <span class="d-none d-sm-inline">{{ auth()->user()->name }}</span>
                         </button>
-                        <ul class="dropdown-menu dropdown-menu-end shadow border-0 mt-1" style="min-width:220px;border-radius:12px;">
-                            {{-- User info header --}}
-                            <li class="px-3 py-2 border-bottom">
+                        <ul class="dropdown-menu dropdown-menu-end shadow border-0 mt-2"
+                            style="min-width:220px;border-radius:12px;overflow:hidden">
+                            {{-- Header --}}
+                            <li class="px-3 py-2 bg-light border-bottom">
                                 <p class="fw-semibold mb-0 small">{{ auth()->user()->name }}</p>
                                 <p class="text-muted mb-0" style="font-size:.75rem">{{ auth()->user()->email }}</p>
                             </li>
                             <li>
-                                <a class="dropdown-item py-2 mt-1" href="{{ route('user.orders.index') }}">
-                                    <i class="bi bi-bag me-2" style="color:var(--toy-primary)"></i>My Orders
+                                <a class="dropdown-item py-2" href="{{ route('user.orders.index') }}">
+                                    <i class="bi bi-bag me-2" style="color:var(--primary)"></i>My Orders
                                 </a>
                             </li>
                             <li>
                                 <a class="dropdown-item py-2" href="{{ route('user.profile') }}">
-                                    <i class="bi bi-person me-2" style="color:var(--toy-primary)"></i>My Profile
+                                    <i class="bi bi-person me-2" style="color:var(--primary)"></i>My Profile
                                 </a>
                             </li>
                             <li>
                                 <a class="dropdown-item py-2" href="{{ route('user.cart') }}">
-                                    <i class="bi bi-cart3 me-2" style="color:var(--toy-primary)"></i>My Cart
+                                    <i class="bi bi-cart3 me-2" style="color:var(--primary)"></i>My Cart
                                 </a>
                             </li>
                             @if(auth()->user()->isAdmin())
-                                <li><hr class="dropdown-divider"></li>
+                                <li><hr class="dropdown-divider my-1"></li>
                                 <li>
                                     <a class="dropdown-item py-2" href="{{ route('admin.dashboard') }}">
                                         <i class="bi bi-speedometer2 me-2 text-muted"></i>Admin Panel
                                     </a>
                                 </li>
                             @endif
-                            <li><hr class="dropdown-divider"></li>
+                            <li><hr class="dropdown-divider my-1"></li>
                             <li>
                                 <form method="POST" action="{{ route('logout') }}">
                                     @csrf
@@ -207,7 +228,7 @@
     </div>
 </nav>
 
-{{-- ── Flash messages ── --}}
+{{-- ════ FLASH MESSAGES ════ --}}
 @if(session('success'))
     <div class="alert alert-success alert-dismissible fade show mb-0 rounded-0" role="alert">
         <div class="container"><i class="bi bi-check-circle me-2"></i>{{ session('success') }}</div>
@@ -221,57 +242,70 @@
     </div>
 @endif
 
-{{-- ── Page content ── --}}
+{{-- ════ CONTENT ════ --}}
 <main>
     @yield('content')
 </main>
 
-{{-- ── Footer ── --}}
-<footer class="footer mt-auto">
+{{-- ════ FOOTER ════ --}}
+<footer class="footer">
     <div class="container">
         <div class="row g-4 g-md-5">
-            <div class="col-lg-3 col-md-6">
-                <h5 class="mb-3">Toy<span style="color:var(--toy-primary)">Rush</span> PH</h5>
-                <p class="mb-3 small">Your trusted one-stop shop for quality toys across the Philippines. Fast delivery nationwide!</p>
-            </div>
-            <div class="col-lg-2 col-md-6">
-                <h6 class="mb-3">Shop</h6>
-                <ul class="list-unstyled mb-0">
-                    <li><a href="{{ route('user.home') }}" class="text-muted text-decoration-none footer-link">Home</a></li>
-                    <li><a href="{{ route('user.shop') }}" class="text-muted text-decoration-none footer-link">Products</a></li>
-                    <li><a href="{{ route('user.cart') }}" class="text-muted text-decoration-none footer-link">Cart</a></li>
-                </ul>
-            </div>
-            <div class="col-lg-2 col-md-6">
-                <h6 class="mb-3">Account</h6>
-                <ul class="list-unstyled mb-0">
-                    <li><a href="{{ route('user.profile') }}"      class="text-muted text-decoration-none footer-link">Profile</a></li>
-                    <li><a href="{{ route('user.orders.index') }}" class="text-muted text-decoration-none footer-link">Orders</a></li>
-                    <li><a href="{{ route('login') }}"             class="text-muted text-decoration-none footer-link">Login</a></li>
-                </ul>
-            </div>
-            <div class="col-lg-3 col-md-6">
-                <h6 class="mb-3">Contact Info</h6>
-                <p class="mb-1 small"><i class="bi bi-geo-alt-fill me-2" style="color:var(--toy-primary)"></i>Metro Manila, Philippines</p>
-                <p class="mb-1 small"><i class="bi bi-telephone-fill me-2 text-success"></i>+63 917 123 4567</p>
-                <p class="mb-3 small"><i class="bi bi-envelope-fill me-2 text-warning"></i>hello@toyrush.ph</p>
-                <div>
+
+            {{-- Brand --}}
+            <div class="col-lg-4 col-md-6">
+                <h5 class="mb-3">Toy<span style="color:var(--primary)">Rush</span> PH</h5>
+                <p class="small mb-3">Your trusted one-stop shop for quality toys across the Philippines. Fast delivery nationwide!</p>
+                <div class="d-flex gap-3">
+                    <a href="#" class="footer-link" style="font-size:1.2rem"><i class="bi bi-facebook"></i></a>
+                    <a href="#" class="footer-link" style="font-size:1.2rem"><i class="bi bi-instagram"></i></a>
+                    <a href="#" class="footer-link" style="font-size:1.2rem"><i class="bi bi-tiktok"></i></a>
                 </div>
             </div>
+
+            {{-- Shop links --}}
+            <div class="col-lg-2 col-md-3 col-6">
+                <h6 class="mb-3">Shop</h6>
+                <ul class="list-unstyled mb-0">
+                    <li><a href="{{ route('user.home') }}" class="footer-link">Home</a></li>
+                    <li><a href="{{ route('user.shop') }}" class="footer-link">Products</a></li>
+                    <li><a href="{{ route('user.cart') }}" class="footer-link">Cart</a></li>
+                </ul>
+            </div>
+
+            {{-- Account links --}}
+            <div class="col-lg-2 col-md-3 col-6">
+                <h6 class="mb-3">Account</h6>
+                <ul class="list-unstyled mb-0">
+                    <li><a href="{{ route('user.profile') }}"      class="footer-link">Profile</a></li>
+                    <li><a href="{{ route('user.orders.index') }}" class="footer-link">Orders</a></li>
+                    <li><a href="{{ route('login') }}"             class="footer-link">Login</a></li>
+                </ul>
+            </div>
+
+            {{-- Contact --}}
+            <div class="col-lg-4 col-md-6">
+                <h6 class="mb-3">Contact</h6>
+                <p class="small mb-2"><i class="bi bi-geo-alt-fill me-2" style="color:var(--primary)"></i>Metro Manila, Philippines</p>
+                <p class="small mb-2"><i class="bi bi-telephone-fill me-2 text-success"></i>+63 917 123 4567</p>
+                <p class="small mb-0"><i class="bi bi-envelope-fill me-2" style="color:var(--secondary)"></i>hello@toyrush.ph</p>
+            </div>
         </div>
-        <hr class="my-4 opacity-25">
-        <div class="row align-items-center">
+
+        <hr class="mt-4 mb-3">
+
+        <div class="row align-items-center g-2">
             <div class="col-md-6">
-                <ul class="list-inline mb-3 mb-md-0">
-                    <li class="list-inline-item"><a href="#" class="text-muted text-decoration-none small footer-link">Privacy Policy</a></li>
-                    <li class="list-inline-item text-muted">|</li>
-                    <li class="list-inline-item"><a href="#" class="text-muted text-decoration-none small footer-link">Terms of Service</a></li>
-                    <li class="list-inline-item text-muted">|</li>
-                    <li class="list-inline-item"><a href="#" class="text-muted text-decoration-none small footer-link">Shipping Info</a></li>
+                <ul class="list-inline mb-0">
+                    <li class="list-inline-item"><a href="#" class="footer-link small">Privacy Policy</a></li>
+                    <li class="list-inline-item" style="color:#555">|</li>
+                    <li class="list-inline-item"><a href="#" class="footer-link small">Terms of Service</a></li>
+                    <li class="list-inline-item" style="color:#555">|</li>
+                    <li class="list-inline-item"><a href="#" class="footer-link small">Shipping Info</a></li>
                 </ul>
             </div>
             <div class="col-md-6 text-md-end">
-                <p class="text-muted mb-0 small">&copy; {{ date('Y') }} ToyRush PH. All rights reserved.</p>
+                <p class="small mb-0" style="color:#666">&copy; {{ date('Y') }} ToyRush PH. All rights reserved.</p>
             </div>
         </div>
     </div>

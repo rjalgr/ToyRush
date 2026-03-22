@@ -25,14 +25,14 @@
                         <div style="font-size:2rem;margin-bottom:8px">
                             @php
                                 $icons = [
-                                    'Action Figures'   => '🦸',
-                                    'Board Games'      => '🎲',
-                                    'Educational Toys' => '📚',
-                                    'Stuffed Animals'  => '🧸',
-                                    'Building Blocks'  => '🧱',
-                                    'Remote Control'   => '🚗',
+                                    'Action Figures'  ,
+                                    'Board Games'     ,
+                                    'Educational Toys',
+                                    'Stuffed Animals' ,
+                                    'Building Blocks' ,
+                                    'Remote Control'  ,
                                 ];
-                                echo $icons[$cat->name] ?? '🎁';
+                                echo $icons[$cat->name] ??'';
                             @endphp
                         </div>
                         <p class="mb-0 small fw-semibold text-dark">{{ $cat->name }}</p>
