@@ -31,45 +31,49 @@
 
         /* ── Navbar ── */
         .navbar {
-            background: #fff;
-            box-shadow: 0 1px 12px rgba(0,0,0,.07);
-            padding: 0 !important;
-            min-height: 60px;
-        }
-        .navbar .container {
-            min-height: 60px;
-            display: flex;
-            align-items: center;
-        }
-        .navbar-brand {
-            font-size: 1.4rem;
-            font-weight: 800;
-            color: var(--primary) !important;
-            line-height: 1;
-            padding: 0;
-            margin-right: 28px;
-        }
-        .navbar-brand span { color: var(--secondary); }
-        .navbar .nav-link {
-            font-size: .9rem;
-            font-weight: 500;
-            color: #444 !important;
-            padding: 0 14px !important;
-            line-height: 60px;
-            white-space: nowrap;
-            transition: color .15s;
-        }
-        .navbar .nav-link:hover,
-        .navbar .nav-link.active { color: var(--primary) !important; }
-        .navbar .btn { font-size: .85rem; }
-        .navbar-toggler:focus { box-shadow: none; }
+        background:transparent;
+        box-shadow:none;
+        border-bottom:none;
+        padding: 0 !important;
+        min-height: 60px;
+        position: relative;
+        width: 100%;
+        z-index: 100;
+}
+    .navbar .container {
+    min-height: 60px;
+    display: flex;
+    align-items: center;
+}
+    .navbar-brand {
+    font-size: 1.4rem;
+    font-weight: 800;
+    color: var(--primary) !important;
+    line-height: 1;
+    padding: 0;
+    margin-right: 28px;
+}
+    .navbar-brand span { color: var(--secondary); }
+    .navbar .nav-link {
+    font-size: .9rem;
+    font-weight: 500;
+    color: #444 !important;
+    padding: 0 14px !important;
+    line-height: 60px;
+    white-space: nowrap;
+    transition: color .15s;
+}
+    .navbar .nav-link:hover,
+    .navbar .nav-link.active { color: var(--primary) !important; }
+    .navbar .btn { font-size: .85rem; }
+    .navbar-toggler:focus { box-shadow: none; }
 
-        /* mobile nav */
-        @media (max-width: 767.98px) {
-            .navbar .nav-link { line-height: 2.4; padding: 0 8px !important; }
-            .navbar-collapse   { padding: 8px 0 12px; border-top: 1px solid #eee; }
-            .navbar-collapse .d-flex { flex-wrap: wrap; gap: 8px !important; padding-top: 8px; }
-        }
+    /* mobile nav */
+    @media (max-width: 767.98px) {
+    .navbar .nav-link  { line-height: 2.4; padding: 0 8px !important; }
+    .navbar-collapse   { padding: 8px 0 12px; border-top: 1px solid #eee; }
+    .navbar-collapse .d-flex { flex-wrap: wrap; gap: 8px !important; padding-top: 8px; }
+}
 
         /* ── Buttons ── */
         .btn-primary               { background: var(--primary); border-color: var(--primary); }
@@ -130,7 +134,7 @@
 <body>
 
 {{-- ════ NAVBAR ════ --}}
-<nav class="navbar navbar-expand-md sticky-top">
+<nav class="navbar navbar-expand-md">
     <div class="container">
         <a class="navbar-brand" href="{{ route('user.home') }}">Toy<span>Rush</span></a>
 
