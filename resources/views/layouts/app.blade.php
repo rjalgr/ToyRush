@@ -27,8 +27,7 @@
 
         /* ── Navbar ── */
         .navbar {
-            background: #fff;
-            box-shadow: 0 2px 10px rgba(0,0,0,.08);
+            background: transparent;
             padding: 0 !important;
             height: 58px;
             width: 100%;
@@ -42,13 +41,14 @@
             line-height: 1;
         }
         .navbar-brand span { color: var(--toy-secondary); }
-        .navbar .nav-link {
-            font-size: .9rem;
-            font-weight: 500;
-            color: #333 !important;
-            padding: 0 14px !important;
-            line-height: 58px;
-        }
+        ..navbar .nav-link {
+        font-size: .9rem;
+        font-weight: 500;
+        color: #333 !important;
+        padding: 0 12px !important;
+        line-height: 58px;
+        white-space: nowrap;
+}
         .navbar .nav-link:hover { color: var(--toy-primary) !important; }
         .navbar .btn { font-size: .85rem; }
         .cart-count {
@@ -90,7 +90,7 @@
             border: none;
             background: #fff;
             border-radius: 12px;
-            transition: transform .2s;
+            transition: transform .10s;
             text-align: center;
             padding: 20px;
         }
@@ -114,7 +114,7 @@
 <body>
 
 {{-- ── Navbar ── --}}
-<nav class="navbar navbar-expand-lg">
+<nav class="navbar navbar-expand-md">
     <div class="container">
         <a class="navbar-brand" href="{{ route('user.home') }}">Toy<span>Rush</span></a>
         <button class="navbar-toggler border-0" type="button"
@@ -123,15 +123,22 @@
         </button>
         <div class="collapse navbar-collapse" id="mainNav">
             <ul class="navbar-nav me-auto mb-0">
-                <li class="nav-item"><a class="nav-link" href="{{ route('user.home') }}">Home</a></li>
-                <li class="nav-item"><a class="nav-link" href="{{ route('user.shop') }}">Shop</a></li>
+                <li class="nav-item">
+                    <a class="nav-link {{ request()->routeIs('user.home') ? 'active fw-semibold' : '' }}"
+                       href="{{ route('user.home') }}">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link {{ request()->routeIs('user.shop') ? 'active fw-semibold' : '' }}"
+                       href="{{ route('user.shop') }}">Shop</a>
+                </li>
             </ul>
             <div class="d-flex align-items-center gap-2">
                 @auth
+                    {{-- Cart --}}
                     <a href="{{ route('user.cart') }}"
                        class="btn btn-sm position-relative me-1"
-                       style="background:var(--toy-primary);border-color:var(--toy-primary);color:#fff;border-radius:8px;padding:6px 12px;">
-                        <i class="bi bi-cart3"></i>
+                       style="background:var(--toy-primary);border-color:var(--toy-primary);color:#fff;border-radius:8px;padding:6px 14px;">
+                        <i class="bi bi-cart3 me-1"></i>Cart
                         @php $cartCount = auth()->user()->cartItems()->count(); @endphp
                         @if($cartCount > 0)
                             <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill"
@@ -140,17 +147,45 @@
                             </span>
                         @endif
                     </a>
+
+                    {{-- User dropdown --}}
                     <div class="dropdown">
-                        <button class="btn btn-outline-primary btn-sm dropdown-toggle"
-                                data-bs-toggle="dropdown">
-                            <i class="bi bi-person-circle me-1"></i>{{ auth()->user()->name }}
+                        <button class="btn btn-outline-primary btn-sm dropdown-toggle d-flex align-items-center gap-1"
+                                data-bs-toggle="dropdown" aria-expanded="false">
+                            <span class="rounded-circle d-inline-flex align-items-center justify-content-center text-white fw-bold"
+                                  style="width:22px;height:22px;font-size:.7rem;background:var(--toy-primary)">
+                                {{ strtoupper(substr(auth()->user()->name, 0, 1)) }}
+                            </span>
+                            {{ auth()->user()->name }}
                         </button>
-                        <ul class="dropdown-menu dropdown-menu-end shadow border-0" style="min-width:200px">
-                            <li><a class="dropdown-item py-2" href="{{ route('user.orders.index') }}"><i class="bi bi-bag me-2 text-muted"></i>My Orders</a></li>
-                            <li><a class="dropdown-item py-2" href="{{ route('user.profile') }}"><i class="bi bi-person me-2 text-muted"></i>My Profile</a></li>
+                        <ul class="dropdown-menu dropdown-menu-end shadow border-0 mt-1" style="min-width:220px;border-radius:12px;">
+                            {{-- User info header --}}
+                            <li class="px-3 py-2 border-bottom">
+                                <p class="fw-semibold mb-0 small">{{ auth()->user()->name }}</p>
+                                <p class="text-muted mb-0" style="font-size:.75rem">{{ auth()->user()->email }}</p>
+                            </li>
+                            <li>
+                                <a class="dropdown-item py-2 mt-1" href="{{ route('user.orders.index') }}">
+                                    <i class="bi bi-bag me-2" style="color:var(--toy-primary)"></i>My Orders
+                                </a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item py-2" href="{{ route('user.profile') }}">
+                                    <i class="bi bi-person me-2" style="color:var(--toy-primary)"></i>My Profile
+                                </a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item py-2" href="{{ route('user.cart') }}">
+                                    <i class="bi bi-cart3 me-2" style="color:var(--toy-primary)"></i>My Cart
+                                </a>
+                            </li>
                             @if(auth()->user()->isAdmin())
                                 <li><hr class="dropdown-divider"></li>
-                                <li><a class="dropdown-item py-2" href="{{ route('admin.dashboard') }}"><i class="bi bi-speedometer2 me-2 text-muted"></i>Admin Panel</a></li>
+                                <li>
+                                    <a class="dropdown-item py-2" href="{{ route('admin.dashboard') }}">
+                                        <i class="bi bi-speedometer2 me-2 text-muted"></i>Admin Panel
+                                    </a>
+                                </li>
                             @endif
                             <li><hr class="dropdown-divider"></li>
                             <li>
@@ -198,11 +233,6 @@
             <div class="col-lg-3 col-md-6">
                 <h5 class="mb-3">Toy<span style="color:var(--toy-primary)">Rush</span> PH</h5>
                 <p class="mb-3 small">Your trusted one-stop shop for quality toys across the Philippines. Fast delivery nationwide!</p>
-                <div class="d-flex gap-3">
-                    <a href="#" class="text-muted"><i class="bi bi-facebook fs-5"></i></a>
-                    <a href="#" class="text-muted"><i class="bi bi-instagram fs-5"></i></a>
-                    <a href="#" class="text-muted"><i class="bi bi-tiktok fs-5"></i></a>
-                </div>
             </div>
             <div class="col-lg-2 col-md-6">
                 <h6 class="mb-3">Shop</h6>
@@ -226,10 +256,6 @@
                 <p class="mb-1 small"><i class="bi bi-telephone-fill me-2 text-success"></i>+63 917 123 4567</p>
                 <p class="mb-3 small"><i class="bi bi-envelope-fill me-2 text-warning"></i>hello@toyrush.ph</p>
                 <div>
-                    <small class="text-muted d-block mb-1">Secure Payments:</small>
-                    <i class="bi bi-credit-card-2-front-fill text-primary fs-5 me-2"></i>
-                    <i class="bi bi-cash-stack text-success fs-5 me-2"></i>
-                    <i class="bi bi-wallet2 text-info fs-5"></i>
                 </div>
             </div>
         </div>

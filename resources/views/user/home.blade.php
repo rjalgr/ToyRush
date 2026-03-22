@@ -50,7 +50,7 @@
 <section class="py-4 bg-white">
     <div class="container">
         <div class="d-flex justify-content-between align-items-center mb-4">
-            <h2 class="fw-bold mb-0">⭐ Featured Toys</h2>
+            <h2 class="fw-bold mb-0">Featured Toys</h2>
             <a href="{{ route('user.shop') }}" class="btn btn-outline-primary btn-sm">View All</a>
         </div>
         <div class="row g-4">
@@ -68,7 +68,7 @@
 <section class="py-5">
     <div class="container">
         <div class="d-flex justify-content-between align-items-center mb-4">
-            <h2 class="fw-bold mb-0">🆕 New Arrivals</h2>
+            <h2 class="fw-bold mb-0">New Arrivals</h2>
             <a href="{{ route('user.shop') }}" class="btn btn-outline-primary btn-sm">View All</a>
         </div>
         <div class="row g-4">
