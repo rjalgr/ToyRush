@@ -80,17 +80,4 @@
         </div>
     </div>
 </section>
-
-{{-- USP Banner --}}
-<section class="py-4" style="background:#FF6B35">
-    <div class="container">
-        <div class="row text-white text-center g-4">
-            <div class="col-md-3"><i class="bi bi-shield-check fs-2"></i><p class="fw-bold mb-0 mt-2">Safe &amp; Certified</p></div>
-            <div class="col-md-3"><i class="bi bi-truck fs-2"></i><p class="fw-bold mb-0 mt-2">Free Ship over ₱1000</p></div>
-            <div class="col-md-3"><i class="bi bi-arrow-counterclockwise fs-2"></i><p class="fw-bold mb-0 mt-2">Easy Returns</p></div>
-            <div class="col-md-3"><i class="bi bi-headset fs-2"></i><p class="fw-bold mb-0 mt-2">24/7 Support</p></div>
-        </div>
-    </div>
-</section>
-
 @endsection
