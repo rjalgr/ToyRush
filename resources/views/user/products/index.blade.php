@@ -58,7 +58,6 @@
             <div class="mt-4">{{ $products->links() }}</div>
             @else
             <div class="text-center py-5">
-                <div style="font-size:4rem">🔍</div>
                 <h5 class="mt-3">No products found</h5>
                 <p class="text-muted">Try adjusting your filters</p>
                 <a href="{{ route('user.shop') }}" class="btn btn-primary">Clear Filters</a>

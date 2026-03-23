@@ -13,11 +13,14 @@
         <div class="col-md-5">
             <div class="card border-0 shadow-sm">
                 @if($product->image)
-                    <img src="{{ asset('storage/'.$product->image) }}" class="card-img-top rounded" style="max-height:400px;object-fit:cover">
+                    <img src="{{ asset('storage/'.$product->image) }}"
+                    class="w-100"
+                    style="height:450px;object-fit:contain;background:#f8f8f8;padding:12px;border-radius:12px;"
+                    alt="{{ $product->name }}">
                 @else
-                    <div class="d-flex align-items-center justify-content-center rounded" style="height:350px;background:#f8f8f8;font-size:6rem"></div>
-                @endif
-            </div>
+            <div class="d-flex align-items-center justify-content-center rounded" style="height:350px;background:#f8f8f8;font-size:6rem"></div>
+            @endif
+        </div>
         </div>
         <div class="col-md-7">
             <span class="badge bg-light text-dark mb-2">{{ $product->category->name }}</span>

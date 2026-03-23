@@ -2,10 +2,9 @@
 @section('title', 'My Orders')
 @section('content')
 <div class="container py-5">
-    <h2 class="fw-bold mb-4">📦 My Orders</h2>
+    <h2 class="fw-bold mb-4">My Orders</h2>
     @if($orders->isEmpty())
     <div class="text-center py-5">
-        <div style="font-size:5rem">📦</div>
         <h4 class="mt-3">No orders yet</h4>
         <p class="text-muted">Start shopping and your orders will appear here.</p>
         <a href="{{ route('user.shop') }}" class="btn btn-primary">Shop Now</a>
